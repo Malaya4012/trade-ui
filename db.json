@@ -1,0 +1,17 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "email": "test@example.com",
+      "password": "123456",
+      "fullName": "John Doe"
+    },
+    {
+      "id": "c1e0",
+      "fullName": "Malaya ranjan biswal",
+      "email": "malaya@gmail.com",
+      "password": "ps123456"
+    }
+  ],
+  "otps": []
+}
