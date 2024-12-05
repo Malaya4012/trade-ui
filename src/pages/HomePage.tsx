@@ -94,7 +94,7 @@ const HomePage: React.FC = () => {
             Empowering MSMEs to trade globally with ease, through licenses, certifications,
             and market integration for success.
           </p>
-          <a href="#signup" className="cta-btn">Get Started</a>
+          <a href="#signup" className="cta-btn">Get Shopping</a>
         </div>
       </section>
 
