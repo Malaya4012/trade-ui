@@ -39,13 +39,6 @@ const ShoppingPage: React.FC = () => {
   
 
 
-
-  // Calculate total price
-  const totalPrice = cartItems.reduce(
-    (total, item) => total + item.price * item.quantity,
-    0
-  );
-
   // Format price to INR currency
   const formatPrice = (price: number) =>
     new Intl.NumberFormat("en-IN", { style: "currency", currency: "INR" }).format(price);
@@ -118,10 +111,7 @@ const ShoppingPage: React.FC = () => {
     setShowRegisterModal(false);
   };
 
-  // Handle payment
-  const handlePayment = () => {
-    alert(`Proceeding to payment with a total of ${formatPrice(totalPrice)}`);
-  };
+  
 
   return (
     <div className="shopping-container">
@@ -208,49 +198,33 @@ const ShoppingPage: React.FC = () => {
           <main className="product-listing">
             {products.map((product) => (
               <div key={product.id} className="product-card">
-                <img src={product.image} alt={product.title} className="product-image" />
-                <div className="product-info">
-                  <h5>{product.title}</h5>
-                  <p>{formatPrice(product.price)}</p>
-                  <button onClick={handleAddToCart} value={product.id} className="add-to-cart-button">Add to Cart</button>
+              <img src={product.image} alt={product.title} className="product-image" />
+              <div className="product-info">
+                <h5>{product.title}</h5>
+                <div className="rating">
+                  {/* Loop through 5 stars */}
+                  {Array.from({ length: 5 }, (_, index) => (
+                    <span
+                      key={index}
+                      className={index < Math.round(product.rating.rate) ? "star filled" : "star"}
+                    >
+                      ★
+                    </span>
+                  ))}
+                  <span className="rating-count">({product.rating.count})</span>
                 </div>
+                <p>{formatPrice(product.price)}</p>
+                <button onClick={handleAddToCart} value={product.id} className="add-to-cart-button">
+                  Add to Cart
+                </button>
               </div>
+            </div>
+            
             ))}
           </main>
         )}
 
-        {/* Cart Sidebar */}
-        {showCart && (
-          <aside className="cart-sidebar">
-            <h3>Your Cart</h3>
-            <table>
-              <thead>
-                <tr>
-                  <th>Product</th>
-                  <th>Price</th>
-                  <th></th>
-                </tr>
-              </thead>
-              <tbody>
-                {cartItems.map((item, index) => (
-                  <tr key={item.id}>
-                    <td>
-                      <img src={item.image} alt={item.title} width="50" height="50" />
-                    </td>
-                    <td>{formatPrice(item.price)}</td>
-                    <td>
-                      <button onClick={handleRemoveItem} value={index} className="remove-item-button">Remove</button>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-            <div className="total-price">
-              <strong>Total Price: {formatPrice(totalPrice)}</strong>
-            </div>
-            <button onClick={handlePayment} className="payment-button">Proceed to Payment</button>
-          </aside>
-        )}
+        
       </section>
     </div>
   );

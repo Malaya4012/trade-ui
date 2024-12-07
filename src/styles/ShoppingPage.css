@@ -460,5 +460,28 @@
       font-size: 0.75rem; /* Adjust font size for smaller screens */
     }
   }
+  /* Rating Stars */
+.rating {
+  display: flex;
+  align-items: center;
+  margin: 5px 0;
+}
+
+.star {
+  font-size: 16px;
+  color: #ccc; /* Gray color for empty stars */
+  transition: color 0.3s ease-in-out;
+}
+
+.star.filled {
+  color: #f4c150; /* Gold color for filled stars */
+}
+
+.rating-count {
+  font-size: 14px;
+  color: #666;
+  margin-left: 8px;
+}
+
     
   
