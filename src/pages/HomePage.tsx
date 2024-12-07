@@ -1,32 +1,36 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import SignInModal from '../components/SignInModal'; // Ensure the path is correct
 import SignUpModal from '../components/SignUpModal'; // Import the newly created SignUpModal
 import '../styles/HomePage.css'; // Ensure the CSS file is linked properly
 
-
-
-
-
 const HomePage: React.FC = () => {
+  const navigate = useNavigate();
   const [isSignInOpen, setIsSignInOpen] = useState(false);
   const [isSignUpOpen, setIsSignUpOpen] = useState(false);
-  
 
+  const handleGetShoppingClick = () => {
+    navigate('/shopping');
+  };
   
-
   const openSignInModal = () => {
     setIsSignInOpen(true);
     setIsSignUpOpen(false);
+    
   };
 
   const openSignUpModal = () => {
     setIsSignUpOpen(true);
     setIsSignInOpen(false);
+    
   };
+  
+
 
   const closeModal = () => {
     setIsSignInOpen(false);
     setIsSignUpOpen(false);
+    
   };
  
 
@@ -78,6 +82,8 @@ const HomePage: React.FC = () => {
       {/* Modals */}
       <SignInModal isOpen={isSignInOpen} onClose={closeModal} onSignUpClick={openSignUpModal}   />
       <SignUpModal isOpen={isSignUpOpen} onClose={closeModal} onSignInClick={openSignInModal} />
+     
+
       
       {/* Navigation Section */}
       <nav className="nav-menu">
@@ -94,7 +100,8 @@ const HomePage: React.FC = () => {
             Empowering MSMEs to trade globally with ease, through licenses, certifications,
             and market integration for success.
           </p>
-          <a href="#signup" className="cta-btn">Get Shopping</a>
+          <a onClick={handleGetShoppingClick} className="cta-btn">Get Shopping</a>
+
         </div>
       </section>
 
