@@ -482,6 +482,14 @@
   color: #666;
   margin-left: 8px;
 }
+.product-link {
+  text-decoration: none; /* Removes underline */
+  color: inherit; /* Ensures it inherits the parent element's color */
+}
+
+.product-link:hover {
+  color: #007bff; /* Optional: Add a hover effect if desired */
+}
 
     
   

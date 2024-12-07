@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import '../styles/ShoppingPage.css'; // Ensure the CSS file is linked properly
 import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 // Define types for products and cart items
 interface Product {
@@ -31,12 +32,12 @@ const ShoppingPage: React.FC = () => {
   const [showLoginModal, setShowLoginModal] = useState<boolean>(false);
   const [showRegisterModal, setShowRegisterModal] = useState<boolean>(false);
   const [successMessage, setSuccessMessage] = useState<string>("");
- 
-  
+
+
   const handleCartButtonClick = () => {
     navigate("/cart", { state: { cartItems } });
   };
-  
+
 
 
   // Format price to INR currency
@@ -111,29 +112,29 @@ const ShoppingPage: React.FC = () => {
     setShowRegisterModal(false);
   };
 
-  
+
 
   return (
     <div className="shopping-container">
       {/* Header */}
       <header className="header-one">
-      <div className="logo-one">
-        <h3>Shopper</h3>
-      </div>
-      <div className="nav-links">
-        <span>Home</span>
-        <span>Electronics</span>
-        <span>Jewelry</span>
-        <span>Men's Clothing</span>
-        <span>Women's Clothing</span>
-      </div>
-      <div className="auth-buttons">
-        <button onClick={() => setShowLoginModal(true)} className="auth-button">Sign In</button>
-        <button onClick={handleCartButtonClick} className="cart-button">
-          Your Cart <span className="cart-count">{cartItems.length}</span>
-        </button>
-      </div>
-    </header>
+        <div className="logo-one">
+          <h3>Shopper</h3>
+        </div>
+        <div className="nav-links">
+          <span>Home</span>
+          <span>Electronics</span>
+          <span>Jewelry</span>
+          <span>Men's Clothing</span>
+          <span>Women's Clothing</span>
+        </div>
+        <div className="auth-buttons">
+          <button onClick={() => setShowLoginModal(true)} className="auth-button">Sign In</button>
+          <button onClick={handleCartButtonClick} className="cart-button">
+            Your Cart <span className="cart-count">{cartItems.length}</span>
+          </button>
+        </div>
+      </header>
 
       {/* Success Message */}
       {successMessage && (
@@ -196,35 +197,36 @@ const ShoppingPage: React.FC = () => {
         {/* Product Listing */}
         {!showCart && (
           <main className="product-listing">
-            {products.map((product) => (
-              <div key={product.id} className="product-card">
-              <img src={product.image} alt={product.title} className="product-image" />
-              <div className="product-info">
-                <h5>{product.title}</h5>
-                <div className="rating">
-                  {/* Loop through 5 stars */}
-                  {Array.from({ length: 5 }, (_, index) => (
-                    <span
-                      key={index}
-                      className={index < Math.round(product.rating.rate) ? "star filled" : "star"}
-                    >
-                      ★
-                    </span>
-                  ))}
-                  <span className="rating-count">({product.rating.count})</span>
+            {
+              products.map((product) => (
+                <div key={product.id} className="product-card">
+                  <Link to={`/product/${product.id}`} className="product-link">
+                    <img src={product.image} alt={product.title} className="product-image" />
+                    <div className="product-info">
+                      <h5>{product.title}</h5>
+                      <div className="rating">
+                        {Array.from({ length: 5 }, (_, index) => (
+                          <span
+                            key={index}
+                            className={index < Math.round(product.rating.rate) ? "star filled" : "star"}
+                          >
+                            ★
+                          </span>
+                        ))}
+                        <span className="rating-count">({product.rating.count})</span>
+                      </div>
+                      <p>{formatPrice(product.price)}</p>
+                    </div>
+                  </Link>
+                  <button onClick={handleAddToCart} value={product.id} className="add-to-cart-button">
+                    Add to Cart
+                  </button>
                 </div>
-                <p>{formatPrice(product.price)}</p>
-                <button onClick={handleAddToCart} value={product.id} className="add-to-cart-button">
-                  Add to Cart
-                </button>
-              </div>
-            </div>
-            
-            ))}
+              ))}
           </main>
         )}
 
-        
+
       </section>
     </div>
   );

@@ -16,6 +16,8 @@ const CartPage: React.FC = () => {
 
   // State to manage the cart items
   const [cartItems, setCartItems] = useState<CartItem[]>(location.state?.cartItems || []);
+  
+  
   const [showPaymentMessage, setShowPaymentMessage] = useState(false);
 
   // Helper function to format price
